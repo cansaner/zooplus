@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title th:text="#{pagetitle}">Cryptocurrency</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/shards.min.css">
+    </head>
+    <body>
+        <div class="container my-5">
+            <h2 class="mb-5" th:text="#{headline}">Unit Price of Cryptocurrency</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="#" th:action="@{/index}" th:object="${cryptocurrencypricerequest}" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <select th:field="*{cryptoCode}" id="cryptocurrencyname" placeholder="CryptocurrencyName" class="form-control">
+                                    <option value="">Cryptocurrency</option>
+                                    <option th:value="'BTC'" th:text="Bitcoin"></option>
+                                    <option th:value="'ETH'" th:text="Ethereum"></option>
+                                    <option th:value="'ETH2'" th:text="'Ethereum 2'"></option>
+                                    <option th:value="'USDT'" th:text="Tether"></option>
+                                    <option th:value="'BNB'" th:text="BNB"></option>
+                                    <option th:value="'USDC'" th:text="'USD Coin'"></option>
+                                    <option th:value="'SOL'" th:text="Solana"></option>
+                                    <option th:value="'XRP'" th:text="XRP"></option>
+                                    <option th:value="'ADA'" th:text="Cardano"></option>
+                                    <option th:value="'LUNA'" th:text="Terra"></option>
+                                    <option th:value="'AVAX'" th:text="Avalanche"></option>
+                                    <option th:value="'DOT'" th:text="Polkadot"></option>
+                                    <option th:value="'DOGE'" th:text="Dogecoin"></option>
+                                    <option th:value="'BUSD'" th:text="'Binance USD'"></option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('cryptoCode')}" th:errors="*{cryptoCode}" th:errorclass="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <input type="text" th:field="*{ipAddress}" class="form-control" id="ipaddress" placeholder="IP Adress">
+                                <p th:if="${#fields.hasErrors('ipAddress')}" th:errors="*{ipAddress}" th:errorclass="text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-5">
+                                <input type="submit" class="btn btn-primary" value="Ask Price">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="col-form-label" th:text="${priceText != null} ? #{result_text} + ' ' + ${priceText} : '' "></label>
+                    <label ></label>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
