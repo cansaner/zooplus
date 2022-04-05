@@ -17,6 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
+/**
+ * Created by cansaner on 05/04/22.
+ */
 @RestClientTest(IpApiService.class)
 class ipApiServiceTest {
 
@@ -72,7 +75,7 @@ class ipApiServiceTest {
 
     @Ignore
     @Test
-    void userClientThrowsExceptionWhenNoUserIsFound() {
+    void ipApiServiceThrowsExceptionWhenHttpClientException() {
         String germanIp = "104.108.78.0";
 
         this.mockRestServiceServer.expect(requestTo("http://ip-api.com/json/104.108.78.0?fields=status,message,countryCode,currency,query"))

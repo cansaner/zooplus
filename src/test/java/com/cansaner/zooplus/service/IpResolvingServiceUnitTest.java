@@ -12,6 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * Created by cansaner on 05/04/22.
+ */
 public class IpResolvingServiceUnitTest {
 
     private static IpResolvingServiceImpl ipResolvingService;

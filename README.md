@@ -9,4 +9,5 @@ Done:
 
 Bugs:
 - I can not display error messages for for validations
-- Test for IpApiServiceTest are failing, they are ignored currently
+- Tests for IpApiServiceTest are not running, they are ignored currently
+- Tests for CoinbaseApiServiceTest are not written, because they are not running
