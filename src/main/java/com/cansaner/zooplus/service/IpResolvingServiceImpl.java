@@ -1,6 +1,6 @@
 package com.cansaner.zooplus.service;
 
-import com.cansaner.zooplus.service.model.IPResult;
+import com.cansaner.zooplus.service.model.IpResult;
 import com.cansaner.zooplus.service.proxy.IpApiService;
 import com.cansaner.zooplus.service.proxy.exception.IpApiSideException;
 import com.cansaner.zooplus.service.proxy.model.IPGeolocation;
@@ -13,22 +13,22 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class IpResolvingServiceImpl implements IpResolvingService {
-	private final IpApiService ipApiService;
+    private final IpApiService ipApiService;
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	public IpResolvingServiceImpl(IpApiService ipApiService) {
-		this.ipApiService = ipApiService;
-	}
+    public IpResolvingServiceImpl(IpApiService ipApiService) {
+        this.ipApiService = ipApiService;
+    }
 
-	@Override
-	public IPResult resolve(String ip) throws IpApiSideException {
-		return getIPGeolocation(ip);
-	}
+    @Override
+    public IpResult resolve(String ip) throws IpApiSideException {
+        return getIPGeolocation(ip);
+    }
 
-	private IPResult getIPGeolocation(String ip) {
-		IPGeolocation geoData = ipApiService.getIPGeolocation(ip);
-		return new IPResult().setCountryCode(geoData.getCountryCode())
-				.setCurrency(geoData.getCurrency());
-	}
+    private IpResult getIPGeolocation(String ip) {
+        IPGeolocation geoData = ipApiService.getIPGeolocation(ip);
+        return new IpResult().setCountryCode(geoData.getCountryCode())
+                .setCurrency(geoData.getCurrency());
+    }
 }

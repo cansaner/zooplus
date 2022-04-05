@@ -1,7 +1,7 @@
 package com.cansaner.zooplus.config;
 
 import com.cansaner.zooplus.service.IpResolvingService;
-import com.cansaner.zooplus.service.model.IPResult;
+import com.cansaner.zooplus.service.model.IpResult;
 import com.cansaner.zooplus.tools.HttpUtils;
 import com.cansaner.zooplus.tools.LocaleUtils;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ public class IPLocaleResolver extends SessionLocaleResolver {
                 logger.info("Request IP field is empty so getting IP from request: {}", ip);
             }
             try {
-                IPResult result = ipResolvingService.resolve(ip);
+                IpResult result = ipResolvingService.resolve(ip);
                 return LocaleUtils.resolveMessage(result.getCountryCode());
             } catch (Exception e) {
                 logger.error("Locale is set to default value: ", e);

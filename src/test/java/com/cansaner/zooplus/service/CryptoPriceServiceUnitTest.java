@@ -2,8 +2,8 @@ package com.cansaner.zooplus.service;
 
 import com.cansaner.zooplus.service.model.Money;
 import com.cansaner.zooplus.service.proxy.CoinbaseApiService;
+import com.cansaner.zooplus.service.proxy.exception.CoinbaseApiSideException;
 import com.cansaner.zooplus.service.proxy.exception.GeneralCoinbaseApiSideException;
-import com.cansaner.zooplus.service.proxy.exception.IpApiSideException;
 import com.cansaner.zooplus.service.proxy.model.CryptoSpotValue;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -48,7 +48,7 @@ public class CryptoPriceServiceUnitTest {
         assertThat(actualResult.getCurrency()).isEqualTo(expectedResult.getCurrency());
     }
 
-    @Test(expected = IpApiSideException.class)
+    @Test(expected = CoinbaseApiSideException.class)
     public void whenCalledResolveAndIpApiFailed_thenCorrect() {
         String cryptoCode = "SOLRRATTTAU";
         String currencyCode = "EUR";
