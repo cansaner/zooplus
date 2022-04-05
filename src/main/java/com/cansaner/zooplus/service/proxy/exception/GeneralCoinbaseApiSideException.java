@@ -3,11 +3,11 @@ package com.cansaner.zooplus.service.proxy.exception;
 /**
  * Created by cansaner on 04/04/22.
  */
-public class GeneralCoinbaseApiSideException extends IpApiSideException {
+public class GeneralCoinbaseApiSideException extends CoinbaseApiSideException {
 
-	private static final long serialVersionUID = -1452795207171940875L;
+    private static final long serialVersionUID = -1452795207171940875L;
 
-	public GeneralCoinbaseApiSideException() {
-		super( "Some errors occurred on api.coinbase.com" );
-	}
+    public GeneralCoinbaseApiSideException() {
+        super("Some errors occurred on api.coinbase.com");
+    }
 }

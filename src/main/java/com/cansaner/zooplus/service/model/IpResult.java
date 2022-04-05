@@ -3,7 +3,7 @@ package com.cansaner.zooplus.service.model;
 /**
  * Created by cansaner on 04/04/22.
  */
-public class IPResult {
+public class IpResult {
     private String countryCode;
     private String currency;
 
@@ -11,7 +11,7 @@ public class IPResult {
         return countryCode;
     }
 
-    public IPResult setCountryCode(String countryCode) {
+    public IpResult setCountryCode(String countryCode) {
         this.countryCode = countryCode;
         return this;
     }
@@ -20,7 +20,7 @@ public class IPResult {
         return currency;
     }
 
-    public IPResult setCurrency(String currency) {
+    public IpResult setCurrency(String currency) {
         this.currency = currency;
         return this;
     }

@@ -1,6 +1,6 @@
 package com.cansaner.zooplus.service;
 
-import com.cansaner.zooplus.service.model.IPResult;
+import com.cansaner.zooplus.service.model.IpResult;
 import com.cansaner.zooplus.service.proxy.IpApiService;
 import com.cansaner.zooplus.service.proxy.exception.IpApiSideException;
 import com.cansaner.zooplus.service.proxy.exception.StatusFailedIpApiSideException;
@@ -35,13 +35,13 @@ public class IpResolvingServiceUnitTest {
                 .setCurrency("EUR")
                 .setQuery(germanIp);
 
-        IPResult expectedResult = new IPResult()
+        IpResult expectedResult = new IpResult()
                 .setCountryCode("DE")
                 .setCurrency("EUR");
 
         when(mockedIpApiService.getIPGeolocation(germanIp)).thenReturn(geoData);
 
-        IPResult actualResult = ipResolvingService.resolve(germanIp);
+        IpResult actualResult = ipResolvingService.resolve(germanIp);
         assertThat(actualResult.getCountryCode()).isEqualTo(expectedResult.getCountryCode());
         assertThat(actualResult.getCurrency()).isEqualTo(expectedResult.getCurrency());
     }
@@ -54,7 +54,7 @@ public class IpResolvingServiceUnitTest {
                 .setMessage("reserved range")
                 .setQuery(reservedIp);
 
-        IPResult expectedResult = new IPResult()
+        IpResult expectedResult = new IpResult()
                 .setCountryCode("DE")
                 .setCurrency("EUR");
 
