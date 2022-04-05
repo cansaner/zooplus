@@ -1,7 +1,5 @@
 package com.cansaner.zooplus.controller;
 
-import javax.validation.Valid;
-
 import com.cansaner.zooplus.dto.CryptocurrencyPriceRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
+/**
+ * Created by cansaner on 04/04/22.
+ */
 @Controller
 public class ViewController {
     private final Logger logger = LoggerFactory.getLogger(getClass());

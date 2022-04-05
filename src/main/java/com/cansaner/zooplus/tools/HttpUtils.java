@@ -1,7 +1,10 @@
-package com.baeldung.crud.tools;
+package com.cansaner.zooplus.tools;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Created by cansaner on 04/04/22.
+ */
 public class HttpUtils {
     private static final String[] IP_HEADERS = {
             "X-Forwarded-For",
@@ -18,14 +21,14 @@ public class HttpUtils {
     };
 
     public static String getRequestIP(HttpServletRequest request) {
-        for (String header: IP_HEADERS){
+        for (String header : IP_HEADERS) {
             String value = request.getHeader(header);
             if (value == null || value.isEmpty()) {
-            continue;
+                continue;
+            }
+            String[] parts = value.split("\\s*,\\s*");
+            return parts[0];
         }
-        String[] parts = value.split("\\s*,\\s*");
-        return parts[0];
-    }
         return request.getRemoteAddr();
-}
+    }
 }

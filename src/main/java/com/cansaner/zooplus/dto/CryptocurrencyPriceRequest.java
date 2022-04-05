@@ -3,6 +3,9 @@ package com.cansaner.zooplus.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+/**
+ * Created by cansaner on 04/04/22.
+ */
 public class CryptocurrencyPriceRequest {
     @NotEmpty(message = "Crypto code is mandatory")
     private String cryptoCode;
@@ -11,18 +14,11 @@ public class CryptocurrencyPriceRequest {
             message = "ip address should be ipv4")
     private String ipAddress;
 
-    public CryptocurrencyPriceRequest() {}
+    public CryptocurrencyPriceRequest() {
+    }
 
     public CryptocurrencyPriceRequest(String cryptoCode, String ipAddress) {
         this.cryptoCode = cryptoCode;
-        this.ipAddress = ipAddress;
-    }
-
-    public void setCryptoCode(String cryptoCode) {
-        this.cryptoCode = cryptoCode;
-    }
-    
-    public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
 
@@ -30,7 +26,15 @@ public class CryptocurrencyPriceRequest {
         return cryptoCode;
     }
 
+    public void setCryptoCode(String cryptoCode) {
+        this.cryptoCode = cryptoCode;
+    }
+
     public String getIpAddress() {
         return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 }

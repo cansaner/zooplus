@@ -1,53 +1,62 @@
-package com.cansaner.zooplus.controller;
+package com.cansaner.zooplus.service;
+
+import com.cansaner.zooplus.service.model.IPResult;
+import com.cansaner.zooplus.service.proxy.IpApiService;
+import com.cansaner.zooplus.service.proxy.exception.IpApiSideException;
+import com.cansaner.zooplus.service.proxy.exception.StatusFailedIpApiSideException;
+import com.cansaner.zooplus.service.proxy.model.IPGeolocation;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.cansaner.zooplus.dto.CryptocurrencyPriceRequest;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+public class IpResolvingServiceUnitTest {
 
-public class ViewControllerUnitTest {
-
-    private static ViewController viewController;
-    private static BindingResult mockedBindingResult;
-    private static Model mockedModel;
+    private static IpResolvingServiceImpl ipResolvingService;
+    private static IpApiService mockedIpApiService;
 
     @BeforeClass
-    public static void setUpUserControllerInstance() {
-        mockedBindingResult = mock(BindingResult.class);
-        mockedModel = mock(Model.class);
-        viewController = new ViewController();
+    public static void setUpIpResolvingServiceInstance() {
+        mockedIpApiService = mock(IpApiService.class);
+        ipResolvingService = new IpResolvingServiceImpl(mockedIpApiService);
     }
 
     @Test
-    public void whenCalledRoot_thenCorrect() {
-        assertThat(viewController.showRoot(mockedModel)).isEqualTo("index");
+    public void whenCalledResolve_thenCorrect() {
+        String germanIp = "104.108.78.0";
+        IPGeolocation geoData = new IPGeolocation()
+                .setStatus("success")
+                .setCountryCode("DE")
+                .setCurrency("EUR")
+                .setQuery(germanIp);
+
+        IPResult expectedResult = new IPResult()
+                .setCountryCode("DE")
+                .setCurrency("EUR");
+
+        when(mockedIpApiService.getIPGeolocation(germanIp)).thenReturn(geoData);
+
+        IPResult actualResult = ipResolvingService.resolve(germanIp);
+        assertThat(actualResult.getCountryCode()).isEqualTo(expectedResult.getCountryCode());
+        assertThat(actualResult.getCurrency()).isEqualTo(expectedResult.getCurrency());
     }
 
-    @Test
-    public void whenCalledIndex_thenCorrect() {
-        assertThat(viewController.showIndex(mockedModel)).isEqualTo("index");
-    }
-    
-    @Test
-    public void whenCalledaddUserAndValidCryptocurrencyPriceRequest_thenCorrect() {
-        CryptocurrencyPriceRequest cryptocurrencyPriceRequest = new CryptocurrencyPriceRequest("BTC", "104.108.78.0");
+    @Test(expected = IpApiSideException.class)
+    public void whenCalledResolveAndIpApiFailed_thenCorrect() {
+        String reservedIp = "0.0.0.0";
+        IPGeolocation geoData = new IPGeolocation()
+                .setStatus("fail")
+                .setMessage("reserved range")
+                .setQuery(reservedIp);
 
-        when(mockedBindingResult.hasErrors()).thenReturn(false);
+        IPResult expectedResult = new IPResult()
+                .setCountryCode("DE")
+                .setCurrency("EUR");
 
-        assertThat(viewController.showCryptoUnitPrice(cryptocurrencyPriceRequest, mockedBindingResult, mockedModel)).isEqualTo("index");
-    }
+        when(mockedIpApiService.getIPGeolocation(reservedIp)).thenThrow(new StatusFailedIpApiSideException(geoData.getMessage()));
 
-    @Test
-    public void whenCalledaddUserAndInValidCryptocurrencyPriceRequest_thenCorrect() {
-        CryptocurrencyPriceRequest cryptocurrencyPriceRequest = new CryptocurrencyPriceRequest("BTC", "104.108.78.0");
-
-        when(mockedBindingResult.hasErrors()).thenReturn(true);
-
-        assertThat(viewController.showCryptoUnitPrice(cryptocurrencyPriceRequest, mockedBindingResult, mockedModel)).isEqualTo("index");
+        ipResolvingService.resolve(reservedIp);
     }
 }

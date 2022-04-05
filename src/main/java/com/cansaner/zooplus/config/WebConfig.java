@@ -1,35 +1,19 @@
-package com.baeldung.crud.config;
+package com.cansaner.zooplus.config;
 
-import com.baeldung.crud.service.IPResolvingService;
+import com.cansaner.zooplus.service.IpResolvingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.util.Locale;
-
+/**
+ * Created by cansaner on 04/04/22.
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
-    public LocaleResolver localeResolver(IPResolvingService iPResolvingService) {
-        return new IPLocaleResolver(iPResolvingService);
-//        localeResolver.setDefaultLocale(Locale.ENGLISH);
-//        return localeResolver;
-    }
-
-    @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("lang");
-        return localeChangeInterceptor;
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
+    public LocaleResolver localeResolver(IpResolvingService ipResolvingService) {
+        return new IPLocaleResolver(ipResolvingService);
     }
 }
